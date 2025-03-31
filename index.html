@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>STUDENT ATTENDANCE SYSTEM</h1>
+        <p>EXCELLENCE IS YOUR OWN HARD WORK</p>
+    </header>
+
+    <div class="user-panels">
+        <div class="user-panel">
+            <i class="fas fa-user-shield"></i>
+            <h2>Admin</h2>
+            <p>Manage the system and view reports</p>
+            <button class="register-btn" onclick="showForm('admin', 'register')">Register</button>
+            <button class="login-btn" onclick="showForm('admin', 'login')">Login</button>
+        </div>
+        <div class="user-panel">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h2>Faculty</h2>
+            <p>Manage students and their attendance</p>
+            <button class="register-btn" onclick="showForm('faculty', 'register')">Register</button>
+            <button class="login-btn" onclick="showForm('faculty', 'login')">Login</button>
+        </div>
+        <div class="user-panel">
+            <i class="fas fa-user-graduate"></i>
+            <h2>Student</h2>
+            <p>View attendance and academic information</p>
+            <button class="register-btn" onclick="showForm('student', 'register')">Register</button>
+            <button class="login-btn" onclick="showForm('student', 'login')">Login</button>
+        </div>
+    </div>
+
+    <!-- Student Registration Form -->
+    <div class="form-container" id="student-register">
+        <h2>Student Registration</h2>
+        <form onsubmit="registerUser(event, 'student')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="student-name-register" placeholder="Full Name" required>
+                <small class="form-text">Only alphabetic letters allowed</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="student-password-register" placeholder="Password" required>
+                <small class="form-text">5-50 characters</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="student-id-register" readonly>
+                <small class="form-text">Auto-generated ID</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="student-phone-register" placeholder="Phone Number" required>
+                <small class="form-text">10 digits only</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="student-email-register" placeholder="Email Address" required>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-university"></i>
+                <select id="student-department-register" required>
+                    <option value="">Select Department</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-graduation-cap"></i>
+                <select id="student-course-register" required>
+                    <option value="">Select Course</option>
+                </select>
+            </div>
+            
+            <div class="subject-selection-group">
+                <i class="fas fa-book"></i>
+                <label>Core Subjects (Auto-assigned)</label>
+                <select id="student-core-subjects-register" multiple disabled>
+                    <option value="">Select Core Subjects</option>
+                </select>
+            </div>
+            
+            <div class="subject-selection-group">
+                <i class="fas fa-book-open"></i>
+                <label>Elective Subject</label>
+                <select id="student-elective-subjects-register" required>
+                    <option value="">Select Elective Subject</option>
+                </select>
+            </div>
+            
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Faculty Registration Form -->
+    <div class="form-container" id="faculty-register">
+        <h2>Faculty Registration</h2>
+        <form onsubmit="registerUser(event, 'faculty')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="faculty-name-register" placeholder="Full Name" required>
+                <small class="form-text">Only alphabetic letters allowed</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="faculty-password-register" placeholder="Password" required>
+                <small class="form-text">5-50 characters</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="faculty-id-register" placeholder="Faculty ID" required>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="faculty-phone-register" placeholder="Phone Number" required>
+                <small class="form-text">10 digits only</small>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="faculty-email-register" placeholder="Email Address" required>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-university"></i>
+                <select id="faculty-department-register" required>
+                    <option value="">Select Department</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <i class="fas fa-graduation-cap"></i>
+                <select id="faculty-course-register" required>
+                    <option value="">Select Course</option>
+                </select>
+            </div>
+            
+            <div class="subject-selection-group">
+                <i class="fas fa-book"></i>
+                <label>Core Subjects to Teach</label>
+                <select id="faculty-core-subjects-register" multiple required>
+                    <option value="">Select Core Subjects</option>
+                </select>
+            </div>
+            
+            <div class="subject-selection-group">
+                <i class="fas fa-book-open"></i>
+                <label>Elective Subject to Teach</label>
+                <select id="faculty-elective-subjects-register" required>
+                    <option value="">Select Elective Subject</option>
+                </select>
+            </div>
+            
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Admin Forms -->
+    <div class="form-container" id="admin-register">
+        <h2>Admin Registration</h2>
+        <form onsubmit="registerUser(event, 'admin')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="admin-name-register" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="admin-password-register" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="admin-id-register" placeholder="Admin ID" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="admin-phone-register" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="admin-email-register" placeholder="Email Address" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div class="form-container" id="admin-login">
+        <h2>Admin Login</h2>
+        <form onsubmit="loginUser(event, 'admin')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="admin-name-login" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="admin-password-login" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Faculty Forms -->
+    <div class="form-container" id="faculty-login">
+        <h2>Faculty Login</h2>
+        <form onsubmit="loginUser(event, 'faculty')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="faculty-name-login" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="faculty-password-login" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Student Forms -->
+    <div class="form-container" id="student-login">
+        <h2>Student Login</h2>
+        <form onsubmit="loginUser(event, 'student')">
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="student-name-login" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="student-password-login" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Admin Portal -->
+    <div id="admin-portal" style="display: none;">
+        <h2>Admin Portal</h2>
+        <button class="logout-button" onclick="logout()">Logout</button>
+        <h3>Student Details</h3>
+        <table class="user-management-table" id="admin-student-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Student ID</th>
+                    <th>Department</th>
+                    <th>Course</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <h3>Faculty Details</h3>
+        <table class="user-management-table" id="admin-faculty-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Faculty ID</th>
+                    <th>Department</th>
+                    <th>Course</th>
+                    <th>Phone Number</th>
+                    <th>Email Address</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- Faculty Portal -->
+    <div id="faculty-portal" style="display: none;">
+        <h2>Faculty Portal</h2>
+        <button class="logout-button" onclick="logout()">Logout</button>
+        <table class="attendance-table" id="faculty-attendance-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Student ID</th>
+                    <th>Department - Course</th>
+                    <th>Attendance</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="saveAttendance()">Save Attendance</button>
+    </div>
+
+    <!-- Student Portal -->
+    <div id="student-portal" style="display: none;">
+        <h2>Student Portal</h2>
+        <button class="logout-button" onclick="logout()">Logout</button>
+        
+        <!-- Student Dashboard -->
+        <div class="student-dashboard">
+            <div class="dashboard-card">
+                <h3>Student Information</h3>
+                <div id="student-info"></div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Course Details</h3>
+                <div id="course-info"></div>
+            </div>
+        </div>
+
+        <div class="attendance-section">
+            <h3>Attendance Records</h3>
+            <table class="attendance-table" id="student-attendance-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="attendance-percentage"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
